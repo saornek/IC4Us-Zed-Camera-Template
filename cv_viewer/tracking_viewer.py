@@ -10,6 +10,9 @@ from collections import deque
 import pandas as pd # to match the label id with the label name
 import cv_viewer.exporter as exporter # to process the data that will be exported the RPi
 
+# define your label csv for location.
+df_labels = pd.read_csv("your csv location")
+
 # ----------------------------------------------------------------------
 #       2D LEFT VIEW
 # ----------------------------------------------------------------------

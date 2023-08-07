@@ -1,0 +1,17 @@
+classid,label
+0,person
+1,bicycle
+2,car
+3,motorcycle
+4,bus
+5,train
+6,truck
+7,boat
+9,traffic light
+10,fire hydrant
+12,street sign
+13,stop sign
+14,bench
+16,cat
+17,dog
+77,teddy bear
