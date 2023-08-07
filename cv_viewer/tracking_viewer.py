@@ -6,6 +6,9 @@ import pyzed.sl as sl
 import math
 from collections import deque
 
+# import libraries
+import pandas as pd # to match the label id with the label name
+import cv_viewer.exporter as exporter # to process the data that will be exported the RPi
 
 # ----------------------------------------------------------------------
 #       2D LEFT VIEW
@@ -58,6 +61,19 @@ def render_2D(left_display, img_scale, objects, is_tracking_on):
             , int(top_left_corner[0]):int(top_left_corner[0] + roi_height)]
 
             overlay_roi[:, :, :] = base_color
+
+            # Match Label and export Data
+            isClassFound = df_labels.isin([obj.raw_label]).any().any()
+            if (isClassFound == True):
+                objectCustomLabel = df_labels.loc[df_labels.classid == obj.raw_label, 'label'].values[0]
+                text = str(objectCustomLabel)
+                exporter.values(str(objectCustomLabel), obj.velocity) 
+                # I chose to export the object label and velocity for this example. 
+                # You can export other properties such as position, object state and etc.
+                # You can find the other properties here: https://www.stereolabs.com/docs/object-detection/#detection-outputs
+            else:
+                print("Class not found.")
+                text = "class " + str(obj.raw_label)
 
             # Display Object label as text
             position_image = get_image_position(obj.bounding_box_2d, img_scale)
